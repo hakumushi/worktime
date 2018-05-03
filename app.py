@@ -19,7 +19,7 @@ def create_tables():
 
 jwt = JWT(app, authenticate, identity)  # /auth
 
-api.add_resource(UserRegister, '/register')
+api.add_resource(UserRegister, '/register', '/register/<int:id>')
 api.add_resource(TimeCard, '/timecard', '/timecard/<int:id>')
 
 if __name__ == '__main__':
