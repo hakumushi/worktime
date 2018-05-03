@@ -31,9 +31,3 @@ class UserRegister(Resource):
         user.save_to_db()
 
         return {"message": "User created successfully."}, 201
-
-    def get(self, id):
-        user = UserModel.find_by_id(id)
-        if user:
-            return { "id": user.id, "email": user.email, "hours_per_day": user.hours_per_day }
-        return {'message': 'User not found'}, 404
