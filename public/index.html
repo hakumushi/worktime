@@ -1,6 +1,6 @@
 <html>
     <head>
-      <title>Timeclock</title>
+      <title>Worktime</title>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-cookies.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.min.js"></script>
@@ -12,7 +12,7 @@
     <body ng-app="timeclockApp">
         <nav class="navbar-fluid navbar-default navbar-fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="#"> Timeclock! </a>
+                <a class="navbar-brand" href="#"> Worktime </a>
                 <p class="navbar-text"> Management of your time at work. </p>
                 <p class="navbar-right navbar-text" ng-hide="authenticated"><a href="#/login">Login</a> or <a href="#/register">Register</a></p>
                 <p class="navbar-right navbar-text" ng-show="authenticated"><a href="#" ng-click="logout()">Logout</a></p>
