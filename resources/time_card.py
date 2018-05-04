@@ -2,19 +2,23 @@ from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.time_card import TimeCardModel
 
+
 class TimeCard(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('enter',
+    parser.add_argument(
+        'enter',
         type=str,
         required=True,
         help="This field cannot be blank."
     )
-    parser.add_argument('out',
+    parser.add_argument(
+        'out',
         type=str,
         required=True,
         help="This field cannot be blank."
     )
-    parser.add_argument('user_id',
+    parser.add_argument(
+        'user_id',
         type=int,
         required=True,
         help="This field cannot be blank."
@@ -29,10 +33,11 @@ class TimeCard(Resource):
 
     @jwt_required()
     def post(self):
+        message = {"message": "A time card with that enter already exists"}
         data = TimeCard.parser.parse_args()
 
         if TimeCardModel.find_by_enter(data['enter']):
-            return {"message": "A time card with that enter already exists"}, 400
+            return message, 400
 
         time_card = TimeCardModel(data['enter'], data['out'], data['user_id'])
         time_card.save_to_db()

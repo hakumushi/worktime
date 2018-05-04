@@ -4,7 +4,7 @@ from flask_jwt import JWT
 
 
 from security import authenticate, identity
-from resources.user import UserRegister
+from resources.user import User
 from resources.time_card import TimeCard
 
 app = Flask(__name__)
@@ -14,13 +14,15 @@ app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 app.secret_key = 'EiEiO'
 api = Api(app)
 
+
 @app.before_first_request
 def create_tables():
     db.create_all()
 
+
 jwt = JWT(app, authenticate, identity)  # /auth
 
-api.add_resource(UserRegister, '/register')
+api.add_resource(User, '/user')
 api.add_resource(TimeCard, '/timecard', '/timecard/<int:id>')
 
 if __name__ == '__main__':

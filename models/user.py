@@ -1,5 +1,6 @@
 from db import db
 
+
 class UserModel(db.Model):
     __tablename__ = 'users'
 
@@ -12,6 +13,9 @@ class UserModel(db.Model):
         self.email = email
         self.password = password
         self.hours_per_day = hours_per_day
+
+    def json(self):
+        return {'id': self.id, 'enter': self.email, 'hours_per_day': self.hours_per_day}
 
     def save_to_db(self):
         db.session.add(self)

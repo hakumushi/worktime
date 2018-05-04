@@ -1,28 +1,39 @@
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required, current_identity
 from models.user import UserModel
 
 
-class UserRegister(Resource):
+class User(Resource):
 
     parser = reqparse.RequestParser()
-    parser.add_argument('email',
+    parser.add_argument(
+        'email',
         type=str,
         required=True,
         help="This field cannot be blank."
     )
-    parser.add_argument('password',
+    parser.add_argument(
+        'password',
         type=str,
         required=True,
         help="This field cannot be blank."
     )
-    parser.add_argument('hours_per_day',
+    parser.add_argument(
+        'hours_per_day',
         type=int,
         required=True,
         help="This field cannot be blank."
     )
 
+    @jwt_required()
+    def get(self):
+        user = UserModel.find_by_id(current_identity.id)
+        if user:
+            return user.json()
+        return {'message': 'Time card not found'}, 404
+
     def post(self):
-        data = UserRegister.parser.parse_args()
+        data = User.parser.parse_args()
 
         if UserModel.find_by_email(data['email']):
             return {"message": "A user with that email already exists"}, 400
