@@ -14,6 +14,7 @@ app.config['JWT_AUTH_USERNAME_KEY'] = 'email'
 app.secret_key = 'EiEiO'
 api = Api(app)
 
+#Test
 @app.before_first_request
 def create_tables():
     db.create_all()
